@@ -15,6 +15,8 @@ main {
   padding: 20px 0;
   border-top: 1px solid #faf9fe;
   border-bottom: 1px solid #faf9fe;
+  display: flex;
+  flex-direction: column;
 }
 
 footer {
@@ -89,4 +91,26 @@ footer {
   font-size: 32px;
   font-weight: normal;
   top: -10;
+}
+
+.forecast-data {
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+.row {
+  display: flex;
+  text-align: center;
+}
+
+.forecast-date {
+  opacity: 0.5;
+}
+
+.forecast-temps {
+  font-size: 12px;
+}
+
+.forecast-min {
+  opacity: 0.5;
 }
