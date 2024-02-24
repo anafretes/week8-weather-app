@@ -17,17 +17,49 @@ function receiveInput(event) {
   searchCity(city);
 }
 
+function formatDate(date) {
+  let minutes = date.getMinutes();
+  let hours = date.getHours();
+  let day = date.getDay();
+
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+
+  if (hours < 10) {
+    hours = "0" + hours;
+  }
+
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  let formattedDay = days[day];
+  return `${formattedDay} ${hours}:${minutes}`;
+}
+
 function showCurrentWeather(response) {
   let temperature = Math.round(response.data.temperature.current);
   let humidity = Math.round(response.data.temperature.humidity);
   // Change wind speed currently at m/s to km/h
   let windSpeed = Math.round(response.data.wind.speed) * 3.6;
   let conditionDescription = response.data.condition.description;
-  let cityElement = document.querySelector("#current-city");
-  cityElement.innerHTML = response.data.city;
+  let conditionSrc = response.data.condition.icon_url;
+  let city = response.data.city;
+  let currentDateElement = document.querySelector("#current-date");
+  let time = response.data.time;
+  let currentDate = new Date(time * 1000);
 
-  let currentTempElement = document.querySelector(".current-temp-value");
-  currentTempElement.innerHTML = temperature;
+  currentDateElement.innerHTML = formatDate(currentDate);
+
+  let cityElement = document.querySelector("#current-city");
+  cityElement.innerHTML = city;
 
   let currentConditionElement = document.querySelector("#current-condition");
   currentConditionElement.innerHTML = conditionDescription;
@@ -37,7 +69,21 @@ function showCurrentWeather(response) {
 
   let currentWindSpeed = document.querySelector("#current-wind");
   currentWindSpeed.innerHTML = `${windSpeed}km/h`;
+
+  let currentConditionIcon = `<img
+                                src="${conditionSrc}"
+                                class="current-temp-icon"
+                                id="current-temp-icon"
+                              />
+                            `;
+  let iconElement = document.querySelector("#icon");
+  iconElement.innerHTML = currentConditionIcon;
+
+  let currentTempElement = document.querySelector("#current-temp-value");
+  currentTempElement.innerHTML = temperature;
 }
 
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", receiveInput);
+
+searchCity("Asuncion");
