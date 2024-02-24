@@ -12,23 +12,33 @@
     <title>Basic title for weather app</title>
   </head>
   <body>
-    <div class="main-app">
+    <div class="container">
       <header>
-        <form>
-          <input type="search" placeholder="Enter a city..." required />
-          <input type="submit" value="Search" />
+        <form class="search-form">
+          <input
+            type="search"
+            class="search-input"
+            placeholder="Enter a city..."
+            required />
+          <input type="submit" class="search-submit" value="Search" />
         </form>
       </header>
       <main>
-        <h1>Asunción</h1>
-        <div>
-          <p>
-            Saturday 0:07, broken clouds
-            <br />
-            Humidity: 89%, Wind: 0.45km/h
-          </p>
+        <div class="main-data">
+          <div>
+            <h1 class="current-city">Asunción</h1>
+            <p class="current-details">
+              Saturday 0:07, broken clouds
+              <br />
+              Humidity: <span class="current-various">89%</span>, Wind:
+              <span class="current-various">0.45km/h</span>
+            </p>
+          </div>
+          <h1 class="current-temp-data">
+            ⛅ <span class="current-temp-value">26</span
+            ><span class="current-temp-unit">°C</span>
+          </h1>
         </div>
-        <div>⛅ 26°C</div>
       </main>
       <footer>
         Coded by

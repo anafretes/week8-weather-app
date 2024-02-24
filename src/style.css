@@ -3,11 +3,85 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-.main-app {
+a {
+  color: #885df1;
+}
+
+header {
+  padding-bottom: 20px;
+}
+
+main {
+  padding: 20px 0;
+  border-top: 1px solid #faf9fe;
+  border-bottom: 1px solid #faf9fe;
+}
+
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.container {
   background: #fff;
   max-width: 600px;
   margin: 50px auto;
   box-shadow: 0 30px 50px rgba(65, 50, 100, 0.08);
   padding: 30px;
   border-radius: 15px;
+}
+
+.search-input {
+  background: #f9f7fe;
+  border: none;
+  border-radius: 5px;
+  width: 75%;
+  padding: 15px 20px;
+  font-size: 16px;
+}
+
+.search-submit {
+  padding: 15px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  background: #885df1;
+  color: #fff;
+  width: 20%;
+}
+
+.main-data {
+  display: flex;
+  justify-content: space-between;
+}
+
+.current-city {
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.current-details {
+  color: #a7a5b2;
+}
+
+.current-various {
+  color: #f65282;
+  font-weight: bold;
+}
+
+.current-temp-data {
+  font-weight: 500;
+  font-size: 64px;
+}
+
+.current-temp-value {
+  font-weight: bold;
+}
+
+.current-temp-unit {
+  vertical-align: super;
+  font-size: 32px;
+  font-weight: normal;
+  top: -10;
 }
