@@ -83,7 +83,34 @@ function showCurrentWeather(response) {
   currentTempElement.innerHTML = temperature;
 }
 
+function showForecast() {
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu"];
+  let forecastDataInjection = "";
+
+  days.forEach(function (day) {
+    forecastDataInjection += `
+      <div class="row">
+      <div class="col-2">
+      <div class="forecast-date">${day}</div>
+      <img
+      src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png"
+      alt=""
+      width="40"
+      class="forecast-icon" />
+      <div class="forecast-temps">
+      <span class="forecast-max">36°</span>
+      <span class="forecast-min">26°</span>
+      </div>
+        </div>
+        </div>`;
+  });
+
+  let forecastData = document.querySelector("#forecast-data");
+  forecastData.innerHTML = forecastDataInjection;
+}
+
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", receiveInput);
 
 searchCity("Asuncion");
+showForecast();
