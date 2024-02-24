@@ -4,14 +4,40 @@ function getApiUrl(city) {
   return apiUrl;
 }
 
-function search(event) {
+function searchCity(city) {
+  axios.get(getApiUrl(city)).then(showCurrentWeather);
+}
+
+function receiveInput(event) {
   event.preventDefault();
   let searchInputElement = document.querySelector("#search-input");
-  let cityElement = document.querySelector("#current-city");
+
   let city = searchInputElement.value;
 
-  cityElement.innerHTML = searchInputElement.value;
+  searchCity(city);
+}
+
+function showCurrentWeather(response) {
+  let temperature = Math.round(response.data.temperature.current);
+  let humidity = Math.round(response.data.temperature.humidity);
+  // Change wind speed currently at m/s to km/h
+  let windSpeed = Math.round(response.data.wind.speed) * 3.6;
+  let conditionDescription = response.data.condition.description;
+  let cityElement = document.querySelector("#current-city");
+  cityElement.innerHTML = response.data.city;
+
+  let currentTempElement = document.querySelector(".current-temp-value");
+  currentTempElement.innerHTML = temperature;
+
+  let currentConditionElement = document.querySelector("#current-condition");
+  currentConditionElement.innerHTML = conditionDescription;
+
+  let currentHumidityElement = document.querySelector("#current-humidity");
+  currentHumidityElement.innerHTML = `${humidity}%`;
+
+  let currentWindSpeed = document.querySelector("#current-wind");
+  currentWindSpeed.innerHTML = `${windSpeed}km/h`;
 }
 
 let searchForm = document.querySelector("#search-form");
-searchForm.addEventListener("submit", search);
+searchForm.addEventListener("submit", receiveInput);
