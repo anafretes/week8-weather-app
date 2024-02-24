@@ -75,6 +75,11 @@ footer {
   font-size: 64px;
 }
 
+.current-temp-icon {
+  vertical-align: top;
+  width: 70px;
+}
+
 .current-temp-value {
   font-weight: bold;
 }
