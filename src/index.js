@@ -1,11 +1,15 @@
-function getApiUrl(city) {
+function getApiUrl(city, forecast = false) {
   let apiKey = "1bfa1ab4e6b89407b8af3385at1eocb2";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+
+  if (forecast === true) {
+    apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  }
   return apiUrl;
 }
 
 function searchCity(city) {
-  axios.get(getApiUrl(city)).then(showCurrentWeather);
+  axios.get(getApiUrl(city)).then(showWeather);
 }
 
 function receiveInput(event) {
@@ -44,7 +48,7 @@ function formatDate(date) {
   return `${formattedDay} ${hours}:${minutes}`;
 }
 
-function showCurrentWeather(response) {
+function showWeather(response) {
   let temperature = Math.round(response.data.temperature.current);
   let humidity = Math.round(response.data.temperature.humidity);
   // Change wind speed currently at m/s to km/h
@@ -81,28 +85,36 @@ function showCurrentWeather(response) {
 
   let currentTempElement = document.querySelector("#current-temp-value");
   currentTempElement.innerHTML = temperature;
+
+  let requestForecast = true;
+  getForecast(city, requestForecast);
 }
 
-function showForecast() {
+function getForecast(city, forecast) {
+  axios.get(getApiUrl(city, forecast)).then(showForecast);
+}
+
+function showForecast(response) {
+  console.log(response.data);
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu"];
   let forecastDataInjection = "";
 
   days.forEach(function (day) {
     forecastDataInjection += `
       <div class="row">
-      <div class="col-2">
-      <div class="forecast-date">${day}</div>
-      <img
-      src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png"
-      alt=""
-      width="40"
-      class="forecast-icon" />
-      <div class="forecast-temps">
-      <span class="forecast-max">36°</span>
-      <span class="forecast-min">26°</span>
-      </div>
+        <div class="col-2">
+          <div class="forecast-date">${day}</div>
+          <img
+          src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png"
+          alt=""
+          width="40"
+          class="forecast-icon" />
+          <div class="forecast-temps">
+            <span class="forecast-max">36°</span>
+            <span class="forecast-min">26°</span>
+          </div>
         </div>
-        </div>`;
+      </div>`;
   });
 
   let forecastData = document.querySelector("#forecast-data");
@@ -113,4 +125,3 @@ let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", receiveInput);
 
 searchCity("Asuncion");
-showForecast();
